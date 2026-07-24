@@ -1,21 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
-// base: './' — GitHub Pages'te repo adı ne olursa olsun çalışması için göreli yollar
+// Tüm JS ve CSS tek bir index.html içine gömülür (viteSingleFile).
+// Neden: Ayrı dosyalar yüklenince, tarayıcının önbelleklediği eski index.html
+// artık silinmiş bir dosyayı isteyip boş/siyah ekran verebiliyordu. Tek dosyada
+// yüklenecek başka hiçbir kaynak olmadığı için bu sorun tamamen ortadan kalkar.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), viteSingleFile()],
   base: './',
-  build: {
-    // Dosya adlarını SABİT tut (içerik hash'i yok). Neden:
-    // Her güncellemede hash'li dosya adı değişince eski dosya siliniyor; tarayıcı eski
-    // (önbellekteki) index.html ile silinmiş dosyayı isteyip boş/siyah ekran veriyordu.
-    // Sabit adlarla önbellekteki sayfa her zaman var olan bir dosyayı işaret eder.
-    rollupOptions: {
-      output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
-      },
-    },
-  },
 })
