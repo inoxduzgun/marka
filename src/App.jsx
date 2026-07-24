@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import Landing from './pages/Landing.jsx'
 import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
@@ -25,6 +26,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <Header />
+      <ErrorBoundary>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/kayit" element={<Register />} />
@@ -38,6 +40,7 @@ export default function App() {
         <Route path="/yonetici" element={<Admin />} />
         <Route path="/kvkk" element={<Kvkk />} />
       </Routes>
+      </ErrorBoundary>
       <Footer />
     </>
   )
